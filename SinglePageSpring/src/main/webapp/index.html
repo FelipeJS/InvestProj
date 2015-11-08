@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html ng-app="InvestProj">
+<head>
+<title>InvestProj</title>
+<meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-utils/0.1.1/angular-ui-utils.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-messages.min.js"></script>
+<script src="js/cpf.js"></script>
+
+<script>
+angular.module("InvestProj", ['ui.mask', 'ngMessages']);
+
+angular.module("InvestProj").controller("Cadastro", function($scope, $http) {
+    $scope.titulo = "Usuarios";
+	$scope.usuarios = [{codigo:"1", nome:"felipe", cpf:"011", login:"teste", senha:"nao"},
+	                   {codigo:"2", nome:"Jao", cpf:"01122", login:"rapaz", senha:"tmbnao"}];
+	
+	$scope.perfis = [{codigo:"1", nome:"Gerente", categoria:"Gerencia"},
+	                 {codigo:"2", nome:"Vendedor", categoria:"Vendas"},
+	                 {codigo:"3", nome:"Atendente", categoria:"Recepção"}]
+	
+	$scope.adicionarUsuario = function(usuario){
+		$http.post("/salvar?cadUsuario=" + usuario.nome + "$" + usuario.cpf + "$" + 
+										   usuario.login + "$" + usuario.senha)
+		  .success(function (response) {
+			  $scope.usuarios.push(response);
+			  delete $scope.usuario;
+			  $scope.usuarioForm.$setPristine();
+		  }).error(function (response) {
+			  alert("Erro" + response.status);
+		  });
+	};
+	
+	$scope.listarUsuario = function(usuario){
+		$http.get("/listar")
+		  .success(function (response) {
+              for (i = 0; i < response.length; i++) {
+                  var item = response[i];
+                  $scope.usuarios.push({ codigo:item.codigo, nome:item.nome, cpf:item.cpf, login:item.login, senha:item.senha});
+              }
+		  }).error(function (response) {
+			  alert("Erro" + response.status);
+		  });
+	};
+	
+	$scope.apagarUsuarios = function(usuarios){
+		$scope.usuarios = usuarios.filter(function(usuario){
+			if(!usuario.selecionado) return usuario;
+		});
+		
+		var usuariosSelecionados = usuarios.filter(function(usuario){
+			if(usuario.selecionado) return usuario;
+		});
+		
+		for(var i = 0; i < usuariosSelecionados.length; i++){
+			$http.get("/apagar?usuario=" + usuariosSelecionados[i].codigo)
+			.success(function (response) {
+				alert(response);
+			}).error(function (response) {
+				alert("Erro ao apagar usuarios" + response.status);
+			});
+		}
+	};
+	
+	$scope.isUsuarioSelecionado = function (usuarios) {
+		return usuarios.some(function(usuario){
+			return usuario.selecionado;
+		});
+	};
+	
+	$scope.isValidCPF = function (cpf) {
+		return CPF.isValid(cpf);
+	};
+});
+</script>
+<style>
+	.jumbotron{
+		width: 60%;
+		text-align: center;
+		margin-top: 1em;
+		margin-left: auto;
+		margin-right: auto; 
+	}
+	
+	th{
+		text-align: center;
+	}
+	
+	#tblUsuarios{
+		margin-top: 2em; 
+		width: 80%; 
+		margin-left: auto; 
+		margin-right: auto;
+	}
+	
+	.form-control{
+		width: 40%; 
+		margin-left: auto; 
+		margin-right: auto;
+		margin-bottom: 0.3em;
+	}
+	
+	#btnSalvar, #btnListar, #btnApagar{
+		width: 40%; 
+		margin-left: auto; 
+		margin-right: auto;
+	}
+	.selecionado{
+		background-color: aqua;
+	}
+	.negrito{
+		font-weight: 600;
+	}
+</style>
+</head>
+<body ng-controller="Cadastro as cad">
+<div class="jumbotron">
+	<h4>{{titulo}}</h4>
+	<table class="table" id="tblUsuarios" ng-show="usuarios.length > 0">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Nome</th>
+				<th>Email</th>
+				<th>Perfil</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="usuario in usuarios" ng-class="{'selecionado negrito': usuario.selecionado}">
+				<td><input type="checkbox" ng-model="usuario.selecionado"/></td>
+				<td>{{usuario.nome}}</td>
+				<td>{{usuario.login}}</td>
+				<td>{{usuario.perfil.nome}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<hr/>
+	<form name="usuarioForm" class="form-horizontal" role="form">
+		<div class="form-group" >
+			<div class="col-sm-12" ng-class="{'has-error': usuarioForm.nome.$error.required && usuarioForm.nome.$dirty, 'has-success': usuarioForm.nome.$valid, 'has-warning': usuarioForm.nome.$error.minlength}">
+				<input type="text" id="txtNome" ng-model="usuario.nome" class="form-control input-sm" placeholder="Nome Completo" name="nome" ng-required="true"  ng-minlength="10"/>
+			</div>
+			
+			<div class="col-sm-12" ng-class="{'has-error': usuarioForm.perfil.$error.required && usuarioForm.perfil.$dirty, 'has-success': usuarioForm.perfil.$valid}">
+				<select ng-model="usuario.perfil" ng-options="perfil.nome group by perfil.categoria for perfil in perfis" class="form-control input-sm" ng-required="true" name="perfil">
+					<option value="">Escolha um Perfil</option>
+				</select>
+			</div>
+			
+			<div class="col-sm-12" ng-class="{'has-error': usuarioForm.cpf.$error.required && usuarioForm.cpf.$dirty, 'has-success': usuarioForm.cpf.$valid, 'has-warning': !isValidCPF(usuarioForm.cpf.$viewValue) && usuarioForm.cpf.$dirty}">
+				<input type="text" id="txtCpf" ng-model="usuario.cpf" class="form-control input-sm"  ng-required="true" name="cpf" ui-mask="999.999.999-99"/>
+			</div>
+			
+			<div class="col-sm-12" ng-class="{'has-error': usuarioForm.login.$error.required && usuarioForm.login.$dirty, 'has-success': usuarioForm.login.$valid, 'has-warning': usuarioForm.login.$error.minlength}">
+				<input type="text" id="txtLogin" ng-model="usuario.login" class="form-control input-sm" placeholder="Login" ng-required="true" name="login" ng-minlength="3"/>
+			</div>
+			
+			<div class="col-sm-12" ng-class="{'has-error': usuarioForm.senha.$error.required && usuarioForm.senha.$dirty, 'has-success': usuarioForm.senha.$valid, 'has-warning': usuarioForm.senha.$error.minlength}">
+				<input type="password" id="txtSenha" ng-model="usuario.senha" class="form-control input-sm" placeholder="Senha" ng-required="true" name="senha" ng-minlength="6"/>
+			</div>
+			
+			<div class="col-sm-12">
+				<button type="button" id="btnSalvar" ng-click="adicionarUsuario(usuario)" class="btn btn-primary btn-block btn-sm" ng-disabled="usuarioForm.$invalid || !isValidCPF(usuarioForm.cpf.$viewValue)">Salvar</button>
+				<button type="button" id="btnApagar" ng-click="apagarUsuarios(usuarios)" class="btn btn-danger btn-block btn-sm" ng-if="isUsuarioSelecionado(usuarios)">Apagar</button>
+				<button type="button" id="btnListar" ng-click="listarUsuario(usuario)" class="btn btn-primary btn-block btn-sm">Carregar Tabela</button>
+			</div>
+		</div>
+	</form>
+</div>
+</body>
+</html>

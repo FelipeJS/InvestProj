@@ -1,0 +1,12 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:f="urn:import:financas.gwt.login">
+
+	<g:HTMLPanel>
+		<h1>Cabeçalho</h1>
+		<f:LoginView />
+		<h1>Rodapé</h1>
+	</g:HTMLPanel>
+
+</ui:UiBinder> 

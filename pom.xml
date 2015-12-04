@@ -20,6 +20,7 @@
 
   <!--modules-->
     <!-- Atenção! A ordem dos módulos interfere na construção da aplicação. -->
+	<module>financas-web</module>
   <!--/modules-->
 
   <dependencyManagement>

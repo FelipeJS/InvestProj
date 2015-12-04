@@ -18,10 +18,11 @@
     <gwt.version>2.7.0</gwt.version>
   </properties>
 
-  <!--modules-->
+  <modules>
     <!-- Atenção! A ordem dos módulos interfere na construção da aplicação. -->
+	<module>financas-gwt</module>
 	<module>financas-web</module>
-  <!--/modules-->
+  </modules>
 
   <dependencyManagement>
     <dependencies>

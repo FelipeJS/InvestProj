@@ -1,0 +1,3 @@
+# Finanças GWT
+
+Módulo GWT.

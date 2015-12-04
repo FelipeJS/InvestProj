@@ -1,0 +1,33 @@
+<div class="jumbotron">
+	<h3>{{titulo}}</h3>
+	
+	<input type="text" class="form-control" ng-model="busca" placeholder="Pesquisar"/>
+	<table class="table" id="tblUsuarios" ng-show="usuarios.length > 0" >
+		<thead>
+			<tr>
+				<th></th>
+				<th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
+				<th><a href="" ng-click="ordenarPor('login')">Login</a></th>
+				<th><a href="" ng-click="ordenarPor('perfil')">Perfil</a></th>
+				<th>Saldo</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr dir-paginate="usuario in usuarios | itemsPerPage:5  | filter:busca | orderBy:ordenacao:direcao" ng-class="{'selecionado negrito': usuario.selecionado}">
+				<td><input type="checkbox" ng-model="usuario.selecionado"/></td>
+				<td><a href="#/detalhesCliente/{{usuario.codigo}}">{{usuario.nome | uppercase}}</a></td>
+				<td>{{usuario.login}}</td>
+				<td>{{usuario.perfil.nome}}</td>
+				<td>{{usuario.saldo | currency}}</td>
+			</tr>
+		</tbody>
+		<dir-pagination-controls
+		max-size="5"
+		direction-links="true"
+		boudary-links="true">
+		</dir-pagination-controls>
+	</table>
+	<hr/>
+	<a class="btn btn-primary btn-block btn-sm" href="#/novoCliente">Novo Cliente</a>
+	<button type="button" id="btnApagar" ng-click="apagarUsuarios(usuarios)" class="btn btn-danger btn-block btn-sm" ng-if="isUsuarioSelecionado(usuarios)">Apagar</button>
+</div>

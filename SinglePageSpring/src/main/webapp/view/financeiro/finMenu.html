@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="Financeiro">
+<head>
+<title>Gestão Financeira</title>
+<meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="../../lib/bootstrap/dist/js/bootstrap.min.js"/>
+<script src="../../lib/angular/angular.min.js"></script>
+
+<script>
+	angular.module("Financeiro", []);
+	
+	angular.module("Financeiro").controller("finLoginCtrl", function($scope){
+		$scope.titulo = "Login";
+		$scope.usuarioLogado = [];
+		
+		$scope.autenticarUsuario = function(usuario){
+			$scope.usuarioLogado = usuario;
+		};
+	});
+</script>
+<style type="text/css">
+	.jumbotron{
+		width:70%;
+		height: 500px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	body{
+		background-color: silver;
+	}
+</style>
+</head>
+<body ng-controller="finLoginCtrl">
+<div class="jumbotron">
+	<h3>{{titulo}}</h3>
+	<h5>{{usuarioLogado}}</h5>
+	<form name="loginForm" class="form-horizontal" role="form">
+		<div class="form-group" >
+			<div class="col-sm-9" ng-class="{'has-error': loginForm.login.$error.required && loginForm.login.$dirty, 'has-success': loginForm.login.$valid, 'has-warning': loginForm.login.$invalid && loginForm.login.$dirty}">
+				<input type="email" id="txtLogin" ng-model="usuario.login" class="form-control input-sm" placeholder="Login" ng-required="true" name="login"/>
+			</div>
+			
+			<div class="col-sm-9" ng-class="{'has-error': loginForm.senha.$error.required && loginForm.senha.$dirty, 'has-success': loginForm.senha.$valid, 'has-warning': loginForm.senha.$error.minlength}">
+				<input type="password" id="txtSenha" ng-model="usuario.senha" class="form-control input-sm" placeholder="Senha" ng-required="true" name="senha" ng-minlength="6"/>
+			</div>
+			
+			<div class="col-sm-9">
+				<button type="button" id="btnSalvar" ng-click="autenticarUsuario(usuario)" class="btn btn-primary btn-block btn-sm" ng-disabled="loginForm.$invalid">Entrar</button>
+			</div>
+		</div>
+	</form>
+</div>
+</body>
+</html>

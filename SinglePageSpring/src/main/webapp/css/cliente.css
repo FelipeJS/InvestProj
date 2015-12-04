@@ -1,0 +1,39 @@
+.jumbotron {
+	width: 60%;
+	text-align: center;
+	margin-top: 1em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+th {
+	text-align: center;
+}
+
+#tblUsuarios {
+	margin-top: 2em;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.form-control {
+	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0.3em;
+}
+
+#btnSalvar, #btnListar, #btnApagar {
+	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.selecionado {
+	background-color: aqua;
+}
+
+.negrito {
+	font-weight: 600;
+}

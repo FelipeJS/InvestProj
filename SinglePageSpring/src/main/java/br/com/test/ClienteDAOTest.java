@@ -62,15 +62,12 @@ public class ClienteDAOTest {
 		clienteDAO.editar(cliente);
 	}
 	
-	@Ignore
+	
 	@Test
 	public void autenticar() {
-		Cliente cliente = new Cliente();
-		cliente.setCodigo(3);
-		cliente.setNome("Ronaldo");
-		cliente.setLogin("felipex");
-		cliente.setSenha("123");
-		cliente.setCpf("03389422");
+		Cliente cliente = new Cliente();;
+		cliente.setLogin("felipejs");
+		cliente.setSenha("22222222");
 
 		ClienteDAO clienteDAO = new ClienteDAO();
 		System.out.println(clienteDAO.autenticar(cliente)); 

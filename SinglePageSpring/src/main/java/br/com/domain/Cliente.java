@@ -12,9 +12,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "cliente")
 @NamedQueries({
-		@NamedQuery(name = "Cliente.listar", query = "SELECT cliente FROM Cliente cliente"),
-		@NamedQuery(name = "Cliente.buscarPorCodigo", query = "SELECT cliente FROM Cliente cliente WHERE cliente.codigo = :codigo"),
-		@NamedQuery(name = "Cliente.autenticar", query = "SELECT cliente FROM Cliente cliente WHERE cliente.login = :login AND cliente.senha = :senha") 
+		@NamedQuery(name = "Cliente.listar", 
+				query = "SELECT cliente FROM Cliente cliente"),
+		@NamedQuery(name = "Cliente.buscarPorCodigo", 
+				query = "SELECT cliente FROM Cliente cliente WHERE cliente.codigo = :codigo"),
+		@NamedQuery(name = "Cliente.autenticar", 
+				query = "SELECT cliente FROM Cliente cliente "
+						+ "WHERE cliente.login = :login AND cliente.senha = :senha") 
 })
 public class Cliente {
 	@Id

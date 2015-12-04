@@ -1,0 +1,19 @@
+<div class="jumbotron">
+	<h3>{{titulo}}</h3>
+	<h5>{{mensagem}}</h5>
+	<form name="loginForm" class="form-horizontal" role="form">
+		<div class="form-group" >
+			<div class="col-sm-12" ng-class="{'has-error': loginForm.login.$error.required && loginForm.login.$dirty, 'has-success': loginForm.login.$valid, 'has-warning': loginForm.login.$error.minlength}">
+				<input type="text" id="txtLogin" ng-model="usuario.login" class="form-control input-sm" placeholder="Login" ng-required="true" name="login" ng-minlength="3"/>
+			</div>
+			
+			<div class="col-sm-12" ng-class="{'has-error': loginForm.senha.$error.required && loginForm.senha.$dirty, 'has-success': loginForm.senha.$valid, 'has-warning': loginForm.senha.$error.minlength}">
+				<input type="password" id="txtSenha" ng-model="usuario.senha" class="form-control input-sm" placeholder="Senha" ng-required="true" name="senha" ng-minlength="6"/>
+			</div>
+			
+			<div class="col-sm-12">
+				<button type="button" id="btnSalvar" ng-click="autenticarUsuario(usuario)" class="btn btn-primary btn-block btn-sm" ng-disabled="loginForm.$invalid">Salvar</button>
+			</div>
+		</div>
+	</form>
+</div>

@@ -107,7 +107,7 @@ public class ClienteDAO {
 
 			cliente = (Cliente) consulta.uniqueResult();
 		} catch (Exception e) {
-			System.out.println("Pessoa não cadastrada - " + e.getMessage());
+			System.out.println(e.getMessage());
 		}
 
 		return cliente;

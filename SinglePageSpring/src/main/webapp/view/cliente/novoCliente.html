@@ -1,0 +1,33 @@
+<div class="jumbotron">
+	<h3>{{titulo}}</h3>
+	<form name="usuarioForm" class="form-horizontal" role="form">
+		<div class="form-group" >
+			<div class="col-sm-12" ng-class="{'has-error': usuarioForm.nome.$error.required && usuarioForm.nome.$dirty, 'has-success': usuarioForm.nome.$valid, 'has-warning': usuarioForm.nome.$error.minlength}">
+				<input type="text" id="txtNome" ng-model="usuario.nome" class="form-control input-sm" placeholder="Nome Completo" name="nome" ng-required="true"  ng-minlength="10"/>
+			</div>
+			
+			<div class="col-sm-12" ng-class="{'has-error': usuarioForm.perfil.$error.required && usuarioForm.perfil.$dirty, 'has-success': usuarioForm.perfil.$valid}">
+				<select ng-model="usuario.perfil" ng-options="perfil.nome group by perfil.categoria for perfil in perfis | orderBy:'nome'" class="form-control input-sm" ng-required="true" name="perfil">
+					<option value="">Escolha um Perfil</option>
+				</select>
+			</div>
+			
+			<div class="col-sm-12" ng-class="{'has-error': usuarioForm.cpf.$error.required && usuarioForm.cpf.$dirty, 'has-success': usuarioForm.cpf.$valid, 'has-warning': !isValidCPF(usuarioForm.cpf.$viewValue) && usuarioForm.cpf.$dirty}">
+				<input type="text" id="txtCpf" ng-model="usuario.cpf" class="form-control input-sm"  ng-required="true" name="cpf" ui-mask="999.999.999-99"/>
+			</div>
+			
+			<div class="col-sm-12" ng-class="{'has-error': usuarioForm.login.$error.required && usuarioForm.login.$dirty, 'has-success': usuarioForm.login.$valid, 'has-warning': usuarioForm.login.$error.minlength}">
+				<input type="text" id="txtLogin" ng-model="usuario.login" class="form-control input-sm" placeholder="Login" ng-required="true" name="login" ng-minlength="3"/>
+			</div>
+			
+			<div class="col-sm-12" ng-class="{'has-error': usuarioForm.senha.$error.required && usuarioForm.senha.$dirty, 'has-success': usuarioForm.senha.$valid, 'has-warning': usuarioForm.senha.$error.minlength}">
+				<input type="password" id="txtSenha" ng-model="usuario.senha" class="form-control input-sm" placeholder="Senha" ng-required="true" name="senha" ng-minlength="6"/>
+			</div>
+			
+			<div class="col-sm-12">
+				<button type="button" id="btnSalvar" ng-click="adicionarUsuario(usuario)" class="btn btn-primary btn-block btn-sm" ng-disabled="usuarioForm.$invalid || !isValidCPF(usuarioForm.cpf.$viewValue)">Salvar</button>
+				<button type="button" id="btnListar" ng-click="listarUsuario(usuario)" class="btn btn-primary btn-block btn-sm">Carregar Tabela</button>
+			</div>
+		</div>
+	</form>
+</div>

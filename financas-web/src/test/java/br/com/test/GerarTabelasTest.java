@@ -2,7 +2,7 @@ package br.com.test;
 
 import org.junit.Test;
 
-import br.com.util.HibernateUtil;
+import br.com.financas.util.HibernateUtil;
 
 public class GerarTabelasTest {
 

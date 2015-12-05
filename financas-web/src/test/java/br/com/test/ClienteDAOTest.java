@@ -3,73 +3,69 @@ package br.com.test;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import br.com.dao.ClienteDAO;
-import br.com.domain.Cliente;
+import br.com.financas.dao.UsuarioDAO;
+import br.com.financas.domain.Usuario;
 
 public class ClienteDAOTest {
 	@Ignore
 	@Test
 	public void salvar() {
-		Cliente cliente = new Cliente();
-		cliente.setNome("Felipe");
-		cliente.setLogin("felipe");
-		cliente.setSenha("123");
-		cliente.setCpf("03389422");
+		Usuario usuario = new Usuario();
+		usuario.setNome("Felipe Campos");
+		usuario.setEmail("tecnologiagrave@gmail.com");
+		usuario.setSenha("12345");
 
-		ClienteDAO clienteDAO = new ClienteDAO();
-		clienteDAO.salvar(cliente);
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		usuarioDAO.salvar(usuario);
 	}
 
 	@Ignore
 	@Test
 	public void listar() {
-		ClienteDAO clienteDAO = new ClienteDAO();
-		System.out.println(clienteDAO.listar());
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		System.out.println(usuarioDAO.listar());
 	}
 
 	@Ignore
 	@Test
 	public void buscarPorCodigo() {
-		ClienteDAO clienteDAO = new ClienteDAO();
-		System.out.println(clienteDAO.buscarPorCodigo(1));
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		System.out.println(usuarioDAO.buscarPorCodigo(1));
 	}
 	
 	@Ignore
 	@Test
 	public void excluir() {
-		Cliente cliente = new Cliente();
-		cliente.setCodigo(1);
-		cliente.setNome("Felipe");
-		cliente.setLogin("felipe");
-		cliente.setSenha("123");
-		cliente.setCpf("03389422");
+		Usuario usuario = new Usuario();
+		usuario.setCodigo(1);
+		usuario.setNome("Felipe");
+		usuario.setEmail("felipe");
+		usuario.setSenha("123");
 
-		ClienteDAO clienteDAO = new ClienteDAO();
-		clienteDAO.excluir(cliente);
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		usuarioDAO.excluir(usuario);
 	}
 	
 	@Ignore
 	@Test
 	public void editar() {
-		Cliente cliente = new Cliente();
-		cliente.setCodigo(2);
-		cliente.setNome("Ronaldo");
-		cliente.setLogin("felipe");
-		cliente.setSenha("123");
-		cliente.setCpf("03389422");
+		Usuario usuario = new Usuario();
+		usuario.setCodigo(2);
+		usuario.setNome("Ronaldo");
+		usuario.setEmail("felipe");
+		usuario.setSenha("123");
 
-		ClienteDAO clienteDAO = new ClienteDAO();
-		clienteDAO.editar(cliente);
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		usuarioDAO.editar(usuario);
 	}
-	
 	
 	@Test
 	public void autenticar() {
-		Cliente cliente = new Cliente();;
-		cliente.setLogin("felipejs");
-		cliente.setSenha("22222222");
+		Usuario usuario = new Usuario();;
+		usuario.setEmail("tecnologiagrave@gmail.com");
+		usuario.setSenha("12345");
 
-		ClienteDAO clienteDAO = new ClienteDAO();
-		System.out.println(clienteDAO.autenticar(cliente)); 
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		System.out.println(usuarioDAO.autenticar(usuario)); 
 	}
 }

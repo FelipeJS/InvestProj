@@ -9,7 +9,7 @@
 
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://127.0.0.1:3306/scrumdb</property>
+        <property name="connection.url">jdbc:mysql://127.0.0.1:3306/financasdb</property>
         <property name="connection.username">root</property>
         <property name="connection.password">2236763</property>
 
@@ -31,7 +31,7 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
         
-        <mapping class="br.com.domain.Cliente"/>
+        <mapping class="br.com.financas.domain.Usuario"/>
 
     </session-factory>
 

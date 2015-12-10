@@ -1,7 +1,5 @@
 package br.com.financas.dao;
 
-import java.util.ArrayList;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -14,35 +12,18 @@ public class UsuarioDAO {
 	public void salvar(Usuario usuario) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transacao = null;
-	
+
 		try {
 			transacao = session.beginTransaction();
 			session.save(usuario);
 			transacao.commit();
 		} catch (RuntimeException ex) {
-			if (transacao != null) 
+			if (transacao != null)
 				transacao.rollback();
 			throw ex;
 		} finally {
 			session.close();
 		}
-	}
-
-	@SuppressWarnings("unchecked")
-	public ArrayList<Usuario> listar() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		ArrayList<Usuario> usuarios = null;
-
-		try {
-			Query consulta = session.getNamedQuery("Usuario.listar");
-			usuarios = (ArrayList<Usuario>) consulta.list();
-		} catch (RuntimeException ex) {
-			throw ex;
-		} finally {
-			session.close();
-		}
-
-		return usuarios;
 	}
 
 	public Usuario buscarPorCodigo(int codigo) {

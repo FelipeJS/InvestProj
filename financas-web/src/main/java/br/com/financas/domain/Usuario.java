@@ -1,6 +1,7 @@
 package br.com.financas.domain;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,30 +11,28 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "cliente")
+@Table(name = "usuario")
 @NamedQueries({
-		@NamedQuery(name = "Usuario.listar", 
-				query = "SELECT cliente FROM Usuario cliente"),
-		@NamedQuery(name = "Usuario.buscarPorCodigo", 
-				query = "SELECT cliente FROM Usuario cliente WHERE cliente.codigo = :codigo"),
-		@NamedQuery(name = "Usuario.autenticar", 
-				query = "SELECT cliente FROM Usuario cliente "
-						+ "WHERE cliente.email = :email AND cliente.senha = :senha") 
+	@NamedQuery(name = "Usuario.buscarPorCodigo", query = "SELECT usuario FROM Usuario usuario WHERE usuario.codigo = :codigo"),
+	@NamedQuery(name = "Usuario.autenticar", query = "SELECT usuario FROM Usuario usuario WHERE usuario.email = :email AND usuario.senha = :senha") 
 })
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
 	private int codigo;
-	
-	@Column(length = 45, nullable = false)
+
+	@Column(length = 55, nullable = false)
 	private String nome;
-	
+
 	@Column(length = 45, nullable = false)
 	private String email;
-	
+
 	@Column(length = 45, nullable = false)
 	private String senha;
+
+	@Embedded
+	private Conta conta;
 
 	public int getCodigo() {
 		return codigo;
@@ -67,9 +66,18 @@ public class Usuario {
 		this.senha = senha;
 	}
 
+	public Conta getConta() {
+		return conta;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
+	}
+
 	@Override
 	public String toString() {
-		return "Usuario [codigo=" + codigo + ", nome=" + nome + ", email=" + email + ", senha=" + senha + "]";
+		return "Usuario [codigo=" + codigo + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", conta="
+				+ conta + "]";
 	}
-	
+
 }

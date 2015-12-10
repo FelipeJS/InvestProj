@@ -1,7 +1,5 @@
 package br.com.financas.service;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.DELETE;
@@ -17,32 +15,9 @@ import com.google.gson.Gson;
 import br.com.financas.dao.UsuarioDAO;
 import br.com.financas.domain.Usuario;
 
-//http://localhost:8888/rest/usuario GET POST PUT DELETE /lOGAR
+//http://localhost:8888/rest/usuario GET POST PUT DELETE 
 @Path("usuario")
 public class UsuarioService {
-
-	@GET
-	public String listar(@Context HttpServletRequest req) {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		AutenticacaoService login = new AutenticacaoService();
-		List<Usuario> usuarios;
-
-		try {
-			HttpSession sessao = req.getSession();
-			if (login.verificarAutenticacao(sessao)) {
-				usuarios = usuarioDAO.listar();
-			} else {
-				usuarios = null;
-			}
-		} catch (Exception e) {
-			usuarios = null;
-		}
-
-		Gson gson = new Gson();
-		String json = gson.toJson(usuarios);
-
-		return json;
-	}
 
 	@GET
 	@Path("{codigo}")
@@ -84,7 +59,7 @@ public class UsuarioService {
 				return 0;
 			}
 		} catch (Exception e) {
-			return 0;
+			return -1;
 		}
 	}
 
@@ -103,9 +78,8 @@ public class UsuarioService {
 			} else {
 				return 0;
 			}
-
 		} catch (Exception e) {
-			return 0;
+			return -1;
 		}
 	}
 
@@ -126,7 +100,7 @@ public class UsuarioService {
 				return 0;
 			}
 		} catch (Exception e) {
-			return 0;
+			return -1;
 		}
 	}
 }

@@ -14,7 +14,7 @@
         <property name="connection.password">2236763</property>
 
         <!-- JDBC connection pool (use the built-in) -->
-        <property name="connection.pool_size">1</property>
+        <property name="connection.pool_size">2</property>
 
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
@@ -32,6 +32,8 @@
         <property name="hbm2ddl.auto">update</property>
         
         <mapping class="br.com.financas.domain.Usuario"/>
+        <mapping class="br.com.financas.domain.Movimentacao"/>
+        <mapping class="br.com.financas.domain.Conta"/>
 
     </session-factory>
 

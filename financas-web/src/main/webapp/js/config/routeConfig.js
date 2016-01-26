@@ -1,28 +1,19 @@
-angular.module("Cadastro").config(function($routeProvider){
-	$routeProvider.when("/clientes", {
-		templateUrl: "view/cliente/clientes.html",
-		controller: "cadastroClienteCtrl",
+angular.module("Financas").config(function($routeProvider){
+	$routeProvider.when("/movimentacoes", {
+		templateUrl: "view/movimentacao.html",
+		controller: "movimentacaoCtrl",
 		resolve: {
-			clientes: function($http){
-				return $http.get("/listar");
+			movimentacoes: function($http){
+				return $http.get("/rest/movimentacao");
 			}
 		}
-	}).when("/novoCliente",{
-		templateUrl: "view/cliente/novoCliente.html",
-		controller: "novoClienteCtrl"
-	}).when("/detalhesCliente/:id", {
-		templateUrl: "view/cliente/detalhesCliente.html",
-		controller: "detalhesClienteCtrl",
-		resolve: {
-			cliente: function($http, $route){
-				return $http.get("/buscarPorCodigo?idCliente=" + $route.current.params.id);
-			}
-		}
-			
 	}).when("/login",{
-		templateUrl: "view/cliente/loginCliente.html",
-		controller: "loginClienteCtrl"
+		templateUrl: "view/login.html",
+		controller: "loginCtrl"
+	}).when("/cadastro",{
+		templateUrl: "view/cadastro.html",
+		controller: "cadastroCtrl"
 	}).otherwise({
-		redirectTo: "/clientes"
+		redirectTo: "/login"
 	});
 });

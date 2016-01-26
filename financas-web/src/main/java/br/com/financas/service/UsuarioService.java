@@ -13,6 +13,7 @@ import javax.ws.rs.core.Context;
 import com.google.gson.Gson;
 
 import br.com.financas.dao.UsuarioDAO;
+import br.com.financas.domain.Conta;
 import br.com.financas.domain.Usuario;
 
 //http://localhost:8888/rest/usuario GET POST PUT DELETE 
@@ -44,22 +45,21 @@ public class UsuarioService {
 	}
 
 	@POST
-	public int salvar(String json, @Context HttpServletRequest req) {
+	public int salvar(String json) {
 		Gson gson = new Gson();
 		Usuario usuario = gson.fromJson(json, Usuario.class);
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		AutenticacaoService login = new AutenticacaoService();
 
+		Conta conta = new Conta();
+		conta.setContadorMovimentacao(0);
+		conta.setSaldo(0.0);
+		usuario.setConta(conta);
+
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		try {
-			HttpSession sessao = req.getSession();
-			if (login.verificarAutenticacao(sessao)) {
-				usuarioDAO.salvar(usuario);
-				return 1;
-			} else {
-				return 0;
-			}
+			usuarioDAO.salvar(usuario);
+			return 1;
 		} catch (Exception e) {
-			return -1;
+			return 0;
 		}
 	}
 
@@ -69,7 +69,7 @@ public class UsuarioService {
 		Usuario usuario = gson.fromJson(json, Usuario.class);
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		AutenticacaoService login = new AutenticacaoService();
-
+		
 		try {
 			HttpSession sessao = req.getSession();
 			if (login.verificarAutenticacao(sessao)) {

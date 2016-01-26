@@ -1,0 +1,59 @@
+<div ng-include="'view/menu.html'"></div>
+<link rel="stylesheet" href="../css/movimentacao.css" />
+<div class="jumbotron" role="movimentacao">
+    <h3>{{titulo}}</h3>
+
+    <input type="text" class="form-control" ng-model="busca" placeholder="Pesquisar" />
+    <table class="table" id="tblMovimentacoes" ng-show="movimentacoes.length > 0">
+        <thead>
+            <tr>
+                <th></th>
+                <th><a href="" ng-click="ordenarPor('descricao')">{{descricao}}</a></th>
+                <th><a href="" ng-click="ordenarPor('valor')">Valor</a></th>
+                <th><a href="" ng-click="ordenarPor('data')">Data</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr dir-paginate="movimentacao in movimentacoes | itemsPerPage:5  | filter:busca | orderBy:ordenacao:direcao" ng-class="{'selecionado negrito': movimentacao.selecionada}">
+                <td><input type="checkbox" ng-model="movimentacao.selecionada" /></td>
+                <td><a href="#/detalhesMovimentacao/{{movimentacao.codigo}}">{{movimentacao.descricao | uppercase}}</a></td>
+                <td>{{movimentacao.valor | currency}}</td>
+                <td>{{movimentacao.data}}</td>
+            </tr>
+        </tbody>
+        <dir-pagination-controls max-size="5"
+                                 direction-links="true"
+                                 boudary-links="true">
+        </dir-pagination-controls>
+    </table>
+
+  <form name="movimentoForm" role="movimento">
+      <h3 id="titulo">Novo Movimento</h3>
+      <h5 id="mensagem">{{menssagem}}</h5>
+
+      <div class="form-group" ng-class="{'has-error': movimentoForm.movimentoNome.$error.required && movimentoForm.movimentoNome.$dirty,
+    			'has-success': movimentoForm.movimentoNome.$valid, 'has-warning': movimentoForm.movimentoNome.$error.minlength}">
+          <input class="form-control input-lg" type="text" name="movimentoNome" ng-model="movimento.descricao"
+                 placeholder="{{descricao}}" ng-required="true" ng-minlength="5" />
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': movimentoForm.movimentoValor.$error.required && movimentoForm.movimentoValor.$dirty,
+'has-success': movimentoForm.movimentoValor.$valid, 'has-warning': movimentoForm.movimentoValor.$invalid && movimentoForm.movimentoValor.$dirty}">
+          <input class="form-control input-lg" type="text" name="movimentoValor"
+                 ng-model="movimento.valor" placeholder="Valor" ng-required="true" />
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': movimentoForm.movimentoData.$error.required && movimentoForm.movimentoData.$dirty,
+'has-success': movimentoForm.movimentoData.$valid, 'has-warning': movimentoForm.movimentoData.$error.minlength}">
+          <input class="form-control input-lg" type="text" name="movimentoData"
+                 ng-model="movimento.data" placeholder="Data" ng-required="true" ng-minlength="10" />
+      </div>
+
+      <button type="submit" ng-click="cadastrarMovimento(movimento)" name="go"
+              ng-disabled="movimentoForm.$invalid" class="btn btn-lg btn-primary btn-block">
+          Salvar
+      </button>
+  </form>
+
+  <button type="button" id="btnApagar" ng-click="apagarMovimentacoes(movimentacoes)" class="btn btn-danger btn-block btn-sm" ng-if="isMovimentacaoSelecionada(movimentacoes)">Apagar</button>
+</div>

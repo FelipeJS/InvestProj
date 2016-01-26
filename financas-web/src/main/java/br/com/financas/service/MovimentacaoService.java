@@ -36,7 +36,7 @@ public class MovimentacaoService {
 				int idUsuario = (int) sessao.getAttribute("idLogado");
 				movimentacoes = movimentacaoDAO.listar(idUsuario);
 			} else {
-				movimentacoes = null;
+				return "";
 			}
 		} catch (Exception e) {
 			movimentacoes = null;
@@ -121,7 +121,7 @@ public class MovimentacaoService {
 				int idUsuario = (int) sessao.getAttribute("idLogado");
 				Usuario usuario = usuarioDAO.buscarPorCodigo(idUsuario);
 				Movimentacao movimentacaoVelha = movimentacaoDAO.buscarPorCodigo(movimentacao.getCodigo(), idUsuario);
-				
+
 				Double valorAjuste = movimentacao.getValor() - movimentacaoVelha.getValor();
 				Conta conta = usuario.getConta();
 				conta.somarSaldo(valorAjuste);

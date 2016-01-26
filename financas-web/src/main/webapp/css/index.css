@@ -1,0 +1,11 @@
+body {
+	background:
+		url(http://wallpaper.ultradownloads.com.br/56263_Papel-de-Parede-Fundo-de-Mosaico-Azul_1920x1200.jpg)
+		no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	padding-top: 50px;
+	position: relative;
+}

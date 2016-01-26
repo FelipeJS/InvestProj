@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="../css/cadastro.css" />
+<div class="container">
+    <div class="row" id="pwd-container">
+        <div class="col-md-4"></div>
+
+        <div class="col-md-4">
+            <section class="cadastro-form">
+                <form name="cadastroForm" role="cadastro">
+                    <h3 id="titulo">{{titulo}}</h3>
+                    <h5 id="mensagem">{{menssagem}}</h5>
+
+                    <div class="form-group" ng-class="{'has-error': cadastroForm.cadastroNome.$error.required && cadastroForm.cadastroNome.$dirty,
+      	'has-success': cadastroForm.cadastroNome.$valid, 'has-warning': cadastroForm.cadastroNome.$error.minlength}">
+                        <input class="form-control input-lg" type="text" name="cadastroNome" ng-model="cadastro.nome"
+                               placeholder="Nome Completo" ng-required="true" ng-minlength="10" />
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error': cadastroForm.cadastroEmail.$error.required && cadastroForm.cadastroEmail.$dirty,
+		'has-success': cadastroForm.cadastroEmail.$valid, 'has-warning': cadastroForm.cadastroEmail.$invalid && cadastroForm.cadastroEmail.$dirty}">
+                        <input class="form-control input-lg" type="email" name="cadastroEmail"
+                               ng-model="cadastro.email" placeholder="Email" ng-required="true" />
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error': cadastroForm.cadastroSenha.$error.required && cadastroForm.cadastroSenha.$dirty,
+		'has-success': cadastroForm.cadastroSenha.$valid, 'has-warning': cadastroForm.cadastroSenha.$error.minlength}">
+                        <input class="form-control input-lg" type="password" name="cadastroSenha"
+                               ng-model="cadastro.senha" placeholder="Senha" ng-required="true" ng-minlength="6" />
+                    </div>
+
+                    <button type="submit" ng-click="cadastrarUsuario(cadastro)" name="go"
+                            ng-disabled="cadastroForm.$invalid" class="btn btn-lg btn-primary btn-block">
+                        Cadastrar
+                    </button>
+
+                    <div>
+                        <a href="#/login">Voltar</a>
+                    </div>
+                </form>
+            </section>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+
+h3 {
+    color: cornflowerblue;
+    text-align: center;
+    font-weight: bold;
+}
+
+.cadastro-form {
+    margin-top: 60px;
+}
+
+form[role=cadastro] {
+    color: #5d5d5d;
+    background: #f2f2f2;
+    padding: 26px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+form[role=cadastro] img {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 35px;
+}
+
+form[role=cadastro] input, form[role=cadastro] button {
+    font-size: 18px;
+    margin: 16px 0;
+}
+
+form[role=cadastro] > div {
+    text-align: center;
+}

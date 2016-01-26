@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="../css/login.css" />
+<div class="container">
+    <div class="row" id="pwd-container">
+        <div class="col-md-4"></div>
+
+        <div class="col-md-4">
+            <section class="login-form">
+                <form name="loginForm" role="login">
+                    <h3 id="titulo">{{titulo}}</h3>
+                    <h5 id="mensagem">{{mensagem}}</h5>
+
+                    <div class="form-group" ng-class="{'has-error': loginForm.loginEmail.$error.required && loginForm.loginEmail.$dirty,
+	'has-success': loginForm.loginEmail.$valid, 'has-warning': loginForm.loginEmail.$invalid && loginForm.loginEmail.$dirty}">
+                        <input class="form-control input-lg" type="email" name="loginEmail"
+                               ng-model="login.email" placeholder="Email" ng-required="true" />
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error': loginForm.loginSenha.$error.required && loginForm.loginSenha.$dirty,
+	'has-success': loginForm.loginSenha.$valid, 'has-warning': loginForm.loginSenha.$error.minlength}">
+                        <input class="form-control input-lg" type="password" name="loginSenha" id="password"
+                               ng-model="login.senha" placeholder="Senha" ng-required="true" ng-minlength="6" />
+                    </div>
+
+                    <button type="submit" ng-click="autenticarUsuario(login)" name="go"
+                            ng-disabled="loginForm.$invalid" class="btn btn-lg btn-primary btn-block">
+                        Entrar
+                    </button>
+
+                    <div>
+                        <a href="#/cadastro">Criar conta</a>
+                    </div>
+                </form>
+
+            </section>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
